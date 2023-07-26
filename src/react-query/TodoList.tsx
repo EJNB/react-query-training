@@ -1,5 +1,4 @@
 import useTodos from "./hooks/useTodos";
-
 const TodoList = () => {
 
   const {data: todos, isLoading, error} = useTodos();
