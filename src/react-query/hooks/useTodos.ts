@@ -2,6 +2,10 @@ import axios from "axios";
 import {useQuery} from "@tanstack/react-query";
 import {CACHE_KEY_TODOS} from "../constanst";
 
+import APIClient from "../services/apiClient";
+
+const api = new APIClient<Todo>('/todos')
+
 export interface Todo {
     id: number;
     title: string;
@@ -9,12 +13,8 @@ export interface Todo {
     completed: boolean;
 }
 
-const fetchTodos = () =>
-    axios
-        .get<Todo[]>('https://jsonplaceholder.typicode.com/todos')
-        .then(res => res.data)
 const useTodos = () => useQuery<Todo[], Error>({
     queryKey: CACHE_KEY_TODOS,
-    queryFn: fetchTodos
+    queryFn: api.getAll
 });
 export default useTodos
